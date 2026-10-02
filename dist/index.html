@@ -3,183 +3,89 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>oncite — need that color</title>
-  <meta name="description" content="oncite — need that color. Listen, look, and follow.">
+  <title>oncite</title>
+  <meta name="description" content="oncite — music, images, and need that color.">
   <meta name="theme-color" content="#ffffff">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath fill='%23fff' d='M0 0h32v32H0z'/%3E%3Cpath fill='%23111' d='M5 6h22v18h-3v3H8v-3H5z'/%3E%3Cpath fill='%23fff' d='M7 8h18v14h-3v3H10v-3H7z'/%3E%3Cpath fill='%230f43d8' d='M9 12h6v7H9zm9 0h6v7h-6z'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="assets/oncite-pixel-transparent.png">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #fff;
-      color: #111;
-      font: 16px/1.3 "Times New Roman", Times, serif;
-    }
-    a { color: #111; text-decoration: underline; }
-    a:visited { color: #111; }
-    a:hover, a:focus { color: #113db7; }
-    .page { width: min(96%, 1040px); margin: 0 auto; padding: 18px 10px 28px; }
-    .site-head {
-      display: grid;
-      grid-template-columns: 120px 1fr 72px;
-      align-items: start;
-      gap: 20px;
-      min-height: 96px;
-    }
-    .brand { font-size: 18px; text-decoration: none; }
-    .archive-nav {
-      display: flex;
-      justify-content: center;
-      gap: clamp(18px, 5vw, 62px);
-      flex-wrap: wrap;
-      line-height: 1.05;
-    }
-    .archive-nav a { text-align: center; }
-    .mark {
-      width: 64px;
-      height: 64px;
-      object-fit: cover;
-      justify-self: end;
-      image-rendering: pixelated;
-      background: #000;
-    }
-    .intro { text-align: center; margin: 28px 0 44px; }
-    .intro h1 { margin: 0; color: #0a277d; font: bold 24px/1.2 Arial, sans-serif; }
-    .intro h2 { margin: 3px 0 12px; color: #0a277d; font: bold 20px/1.2 Arial, sans-serif; }
-    .intro p { margin: 0; font: bold 13px/1.3 Arial, sans-serif; }
-    .release { width: min(100%, 650px); margin: 0 auto 70px; }
-    .catalog-number { margin: 0 0 8px -34px; color: #0a277d; font-size: 13px; }
-    .main-photo { display: block; width: 100%; height: auto; }
-    .caption {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      color: #0a277d;
-      font: 13px/1.2 "Courier New", monospace;
-      margin-top: 5px;
-    }
-    .thoughts {
-      width: min(92%, 560px);
-      margin: 0 auto 54px;
-      text-align: center;
-      color: #26205f;
-      font: 14px/1.45 "Courier New", monospace;
-    }
-    .thoughts p { margin: 7px 0; }
-    .player {
-      width: min(92%, 600px);
-      margin: 0 auto 78px;
-      border: 2px outset #e5e5e5;
-      background: #ececec;
-      color: #333;
-      font: 14px/1.2 "Courier New", monospace;
-    }
-    .player-title {
-      position: relative;
-      padding: 6px 70px;
-      text-align: center;
-      border-bottom: 1px solid #bcbcbc;
-      background: #f5f5f5;
-    }
-    .window-buttons { position: absolute; left: 9px; top: 5px; letter-spacing: 3px; color: #858585; }
-    .player-info {
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      gap: 10px;
-      align-items: center;
-      background: #fff;
-      padding: 10px;
-      border-bottom: 1px solid #c9c9c9;
-    }
-    .player-icon { width: 42px; height: 42px; image-rendering: pixelated; }
-    .player-info strong { display: block; color: #0f43d8; font-weight: normal; }
-    .player-info span { font-size: 12px; color: #666; }
-    .soundcloud { display: block; width: 100%; height: 120px; border: 0; background: #fff; }
-    .player-bottom { padding: 7px 10px; text-align: right; font-size: 12px; }
-    footer { margin-top: 30px; }
-    .footer-links {
-      display: grid;
-      grid-template-columns: repeat(5, auto);
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-    }
-    .footer-links strong { font-weight: normal; }
-    .last-line { margin: 30px 0 0; text-align: center; color: #0a277d; font: 12px "Courier New", monospace; }
-    @media (max-width: 700px) {
-      .site-head { grid-template-columns: 1fr 58px; }
-      .archive-nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; gap: 14px 28px; }
-      .mark { width: 52px; height: 52px; }
-      .intro { margin-top: 38px; }
-      .catalog-number { margin-left: 0; }
-      .footer-links { grid-template-columns: repeat(2, auto); justify-content: start; }
+    body { margin: 12px; background: white; color: #111; font-family: Arial, Helvetica, sans-serif; font-size: 16px; }
+    header, footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 48px; }
+    .logo { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
+    main { width: min(94%, 760px); margin: 70px auto; text-align: center; }
+    .number { text-align: left; color: #003399; margin: 0 0 8px; }
+    .photo { width: min(100%, 560px); height: auto; }
+    .caption { width: min(100%, 560px); margin: 3px auto 80px; display: flex; justify-content: space-between; color: #003399; font-size: 13px; }
+    .message { margin: 0 auto 70px; line-height: 1.55; }
+    .player { width: min(100%, 540px); margin: auto; border: 1px solid #999; background: #eee; text-align: left; }
+    .player-title { padding: 6px; text-align: center; border-bottom: 1px solid #aaa; }
+    .track { display: flex; gap: 10px; align-items: center; padding: 8px; background: white; }
+    .track img { width: 42px; height: 42px; object-fit: contain; image-rendering: pixelated; }
+    .track small { display: block; color: #666; }
+    iframe { display: block; width: 100%; height: 120px; border: 0; }
+    .player-link { padding: 6px; text-align: right; font-size: 13px; }
+    footer { margin-top: 100px; align-items: flex-end; }
+    footer nav { justify-content: flex-end; }
+    @media (max-width: 650px) {
+      header, footer { flex-direction: column; }
+      header nav, footer nav { justify-content: flex-start; gap: 12px 24px; }
+      .logo { position: absolute; top: 12px; right: 12px; }
+      main { margin-top: 55px; }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <header class="site-head">
-      <a class="brand" href="#top">oncite</a>
-      <nav class="archive-nav" aria-label="Site navigation">
-        <a href="#release">New release<br>Need That Color</a>
-        <a href="#player">Listen<br>Player</a>
-        <a href="#message">Notes<br>On Color</a>
-        <a href="#links">Contact<br>Links</a>
-      </nav>
-      <img class="mark" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
-    </header>
+  <header id="top">
+    <a href="#top">oncite</a>
+    <nav aria-label="Page navigation">
+      <a href="#release">Current<br>release</a>
+      <a href="#message">Notes<br>on color</a>
+      <a href="#player">Listen<br>player</a>
+      <a href="#links">Contact<br>links</a>
+    </nav>
+    <img class="logo" src="assets/oncite-pixel-transparent.png" alt="Pixelated Oncite face logo">
+  </header>
 
-    <section class="intro" id="top">
-      <h1>NEED THAT COLOR</h1>
-      <h2>oncite</h2>
-      <p>current release / listen below</p>
-    </section>
-
-    <section class="release" id="release" aria-label="Need That Color photograph">
-      <p class="catalog-number">[01]</p>
-      <img class="main-photo" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
+  <main>
+    <section id="release" aria-label="Current release image">
+      <p class="number">[01]</p>
+      <img class="photo" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
       <div class="caption"><span>cam_01.jpg</span><span>before the color moved</span></div>
     </section>
 
-    <section class="thoughts" id="message" aria-label="Notes on color">
+    <section class="message" id="message" aria-label="Notes on color">
       <p>all of this color scares me.</p>
       <p>I thought I needed less noise, less light, less feeling.</p>
-      <p>but maybe I need more places, more people, more experiences.</p>
+      <p>maybe I need more places, more people, more experiences.</p>
       <p>what if I could take every color away with magic?</p>
       <p>then I would probably miss it.</p>
       <p>I need it all.</p>
     </section>
 
-    <section class="player" id="player" aria-labelledby="player-heading">
-      <div class="player-title" id="player-heading">
-        <span class="window-buttons">● ● ●</span>
-        oncite player
-      </div>
-      <div class="player-info">
-        <img class="player-icon" src="assets/oncite-pixel.png" alt="">
-        <div><strong>01 — need that color</strong><span>soundcloud / press play</span></div>
+    <section class="player" id="player" aria-labelledby="player-title">
+      <div class="player-title" id="player-title">oncite player</div>
+      <div class="track">
+        <img src="assets/oncite-pixel-transparent.png" alt="">
+        <div>01 — need that color<small>soundcloud / press play</small></div>
       </div>
       <iframe
-        class="soundcloud"
         title="Listen to need that color by Oncite on SoundCloud"
         loading="lazy"
         allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/oncite/need-that-color-k0l&amp;color=%230f43d8&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false">
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/oncite/need-that-color-k0l&amp;color=%23003399&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false">
       </iframe>
-      <div class="player-bottom"><a href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">open track</a></div>
+      <div class="player-link"><a href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">open track</a></div>
     </section>
-
-    <footer id="links">
-      <nav class="footer-links" aria-label="Oncite links">
-        <strong>oncite</strong>
-        <a href="https://www.instagram.com/0ncite/reels/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.tiktok.com/@0ncite" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">SoundCloud</a>
-        <a href="https://open.spotify.com/artist/5I6XC9NLe7olIUzIZmUA6B?si=42Apl4CFTom0gqGpO6nQ1g" target="_blank" rel="noopener">Spotify</a>
-      </nav>
-      <p class="last-line">[ all color is temporary ]</p>
-    </footer>
   </main>
+
+  <footer id="links">
+    <span>oncite</span>
+    <nav aria-label="Oncite links">
+      <a href="https://www.instagram.com/0ncite/reels/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@0ncite" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">SoundCloud</a>
+      <a href="https://open.spotify.com/artist/5I6XC9NLe7olIUzIZmUA6B?si=42Apl4CFTom0gqGpO6nQ1g" target="_blank" rel="noopener">Spotify</a>
+    </nav>
+  </footer>
 </body>
 </html>
