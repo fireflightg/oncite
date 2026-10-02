@@ -6,26 +6,40 @@
   <title>oncite</title>
   <meta name="description" content="oncite — music, images, and need that color.">
   <meta name="theme-color" content="#ffffff">
-  <link rel="icon" type="image/png" href="assets/oncite-pixel-transparent.png">
+  <link rel="icon" type="image/png" href="assets/oncite-pixel.png">
   <style>
-    body { margin: 12px; background: white; color: #111; font-family: Arial, Helvetica, sans-serif; font-size: 16px; }
+    body { margin: 12px; background: white; color: #111; font-family: Helvetica, Arial, sans-serif; font-size: 16px; }
     header, footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
     nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 48px; }
     .logo { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
-    main { width: min(94%, 760px); margin: 70px auto; text-align: center; }
+    main { width: min(96%, 1200px); margin: 70px auto; text-align: center; }
+    .release-row, .message-row { display: grid; grid-template-columns: 220px minmax(0, 560px) 220px; gap: 50px; justify-content: center; align-items: start; }
+    .release, .message { grid-column: 2; }
+    .star { grid-column: 1; }
+    .twinkle { grid-column: 3; }
     .number { text-align: left; color: #003399; margin: 0 0 8px; }
-    .photo { width: min(100%, 560px); height: auto; }
-    .caption { width: min(100%, 560px); margin: 3px auto 80px; display: flex; justify-content: space-between; color: #003399; font-size: 13px; }
-    .message { margin: 0 auto 70px; line-height: 1.55; }
-    .player { width: min(100%, 540px); margin: auto; border: 1px solid #999; background: #eee; text-align: left; }
-    .player-title { padding: 6px; text-align: center; border-bottom: 1px solid #aaa; }
-    .track { display: flex; gap: 10px; align-items: center; padding: 8px; background: white; }
-    .track img { width: 42px; height: 42px; object-fit: contain; image-rendering: pixelated; }
-    .track small { display: block; color: #666; }
-    iframe { display: block; width: 100%; height: 120px; border: 0; }
+    .photo { width: 100%; height: auto; }
+    .caption { margin: 3px auto 80px; display: flex; justify-content: space-between; color: #003399; font-size: 13px; }
+    .message { margin-bottom: 70px; line-height: 1.55; }
+    .sticker { width: 220px; }
+    .gif { width: 100%; aspect-ratio: 1; border: 0; }
+    .sticker p { margin: 2px 0; font-size: 12px; }
+    .player { width: min(100%, 540px); margin: 20px auto 150px; border: 1px solid #999; background: #eee; text-align: left; }
+    .soundcloud { display: block; width: 100%; height: 120px; border: 0; }
     .player-link { padding: 6px; text-align: right; font-size: 13px; }
+    .gallery { width: min(100%, 700px); margin: 0 auto 120px; }
+    .gallery h2 { font-size: 18px; font-weight: normal; }
+    .gallery figure { margin: 90px 0; }
+    .gallery img { width: min(100%, 520px); height: auto; }
+    .gallery .pixel { width: min(100%, 360px); image-rendering: pixelated; }
+    .gallery figcaption { margin-top: 4px; color: #003399; font-size: 13px; }
     footer { margin-top: 100px; align-items: flex-end; }
     footer nav { justify-content: flex-end; }
+    @media (max-width: 1050px) {
+      .release-row, .message-row { grid-template-columns: minmax(0, 560px); }
+      .release, .message, .star, .twinkle { grid-column: 1; }
+      .sticker { width: 150px; margin: 25px auto; }
+    }
     @media (max-width: 650px) {
       header, footer { flex-direction: column; }
       header nav, footer nav { justify-content: flex-start; gap: 12px 24px; }
@@ -41,40 +55,59 @@
       <a href="#release">Current<br>release</a>
       <a href="#message">Notes<br>on color</a>
       <a href="#player">Listen<br>player</a>
+      <a href="#gallery">Gallery</a>
       <a href="#links">Contact<br>links</a>
     </nav>
-    <img class="logo" src="assets/oncite-pixel-transparent.png" alt="Pixelated Oncite face logo">
+    <img class="logo" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
   </header>
 
   <main>
-    <section id="release" aria-label="Current release image">
-      <p class="number">[01]</p>
-      <img class="photo" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
-      <div class="caption"><span>cam_01.jpg</span><span>before the color moved</span></div>
+    <div class="release-row">
+      <aside class="sticker star" aria-label="Golden star sticker">
+        <iframe class="gif" src="https://giphy.com/embed/C4b6GwFKbYxK8" title="Golden star sticker from GIPHY" allowfullscreen></iframe>
+        <p><a href="https://giphy.com/stickers/golden-C4b6GwFKbYxK8" target="_blank" rel="noopener">via GIPHY</a></p>
+      </aside>
+
+      <section class="release" id="release" aria-label="Current release image">
+        <p class="number">[01]</p>
+        <img class="photo" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
+        <div class="caption"><span>cam_01.jpg</span><span>before the color moved</span></div>
+      </section>
+    </div>
+
+    <div class="message-row">
+      <section class="message" id="message" aria-label="Notes on color">
+        <p>all of this color scares me.</p>
+        <p>I thought I needed less noise, less light, less feeling.</p>
+        <p>maybe I need more places, more people, more experiences.</p>
+        <p>what if I could take every color away with magic?</p>
+        <p>then I would probably miss it.</p>
+        <p>I need it all.</p>
+      </section>
+
+      <aside class="sticker twinkle" aria-label="White twinkle sticker">
+        <iframe class="gif" src="https://giphy.com/embed/z67mBV0zhGzDHYri1C" title="White twinkle sticker from GIPHY" allowfullscreen></iframe>
+        <p><a href="https://giphy.com/stickers/white-star-twinkle-z67mBV0zhGzDHYri1C" target="_blank" rel="noopener">via GIPHY</a></p>
+      </aside>
+    </div>
+
+    <section class="player" id="player" aria-label="SoundCloud player">
+      <iframe id="soundcloud-player" class="soundcloud" title="Listen to Oncite on SoundCloud" loading="lazy" allow="autoplay"></iframe>
+      <div class="player-link"><a id="track-link" href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">open track</a></div>
     </section>
 
-    <section class="message" id="message" aria-label="Notes on color">
-      <p>all of this color scares me.</p>
-      <p>I thought I needed less noise, less light, less feeling.</p>
-      <p>maybe I need more places, more people, more experiences.</p>
-      <p>what if I could take every color away with magic?</p>
-      <p>then I would probably miss it.</p>
-      <p>I need it all.</p>
-    </section>
-
-    <section class="player" id="player" aria-labelledby="player-title">
-      <div class="player-title" id="player-title">oncite player</div>
-      <div class="track">
-        <img src="assets/oncite-pixel-transparent.png" alt="">
-        <div>01 — need that color<small>soundcloud / press play</small></div>
-      </div>
-      <iframe
-        title="Listen to need that color by Oncite on SoundCloud"
-        loading="lazy"
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/oncite/need-that-color-k0l&amp;color=%23003399&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false">
-      </iframe>
-      <div class="player-link"><a href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">open track</a></div>
+    <section class="gallery" id="gallery" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Gallery</h2>
+      <figure>
+        <p class="number">[02]</p>
+        <img src="assets/oncite-logo.png" alt="Original Oncite logo">
+        <figcaption>oncite logo.png</figcaption>
+      </figure>
+      <figure>
+        <p class="number">[03]</p>
+        <img class="pixel" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
+        <figcaption>Comp 1.png</figcaption>
+      </figure>
     </section>
   </main>
 
@@ -87,5 +120,11 @@
       <a href="https://open.spotify.com/artist/5I6XC9NLe7olIUzIZmUA6B?si=42Apl4CFTom0gqGpO6nQ1g" target="_blank" rel="noopener">Spotify</a>
     </nav>
   </footer>
+
+  <script>
+    const trackLink = document.getElementById('track-link');
+    const player = document.getElementById('soundcloud-player');
+    player.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(trackLink.href) + '&color=%23003399&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false';
+  </script>
 </body>
 </html>
