@@ -15,10 +15,9 @@
     header nav { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
     main { width: min(92%, 760px); margin: 45px auto 120px; text-align: center; }
     section { margin: 0 auto 115px; }
-    .opening { min-height: 460px; }
+    .opening { min-height: 0; padding-top: 120px; margin-bottom: 45px; }
     .logo { width: min(72vw, 340px); image-rendering: pixelated; }
     .small { color: #1748d2; }
-    .gif { display: block; width: 145px; margin: -35px 12% 0 auto; }
     figure { margin: 0; }
     .release { max-width: 650px; }
     .release img { display: block; width: 100%; }
@@ -38,8 +37,7 @@
     @media (max-width: 600px) {
       main { margin-top: 25px; }
       section { margin-bottom: 85px; }
-      .opening { min-height: 390px; }
-      .gif { width: 110px; margin-top: -20px; }
+      .opening { min-height: 0; padding-top: 60px; margin-bottom: 35px; }
       figcaption { font-size: 10px; }
     }
   </style>
@@ -58,7 +56,6 @@
   <main>
     <section class="opening" id="top" aria-label="Oncite">
       <img class="logo" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
-      <img class="gif" src="https://media4.giphy.com/media/CpN4i1XQAQmZFAD7wR/giphy.gif" alt="Animated shining star">
     </section>
 
     <section class="release" id="release" aria-label="Current release image">
