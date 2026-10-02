@@ -8,43 +8,32 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" href="assets/oncite-pixel.png">
   <style>
-    body { margin: 12px; background: white; color: #111; font-family: Helvetica, Arial, sans-serif; font-size: 16px; }
-    header, footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
-    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 48px; }
-    .logo { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
-    main { width: min(96%, 1200px); margin: 70px auto; text-align: center; }
-    .release-row, .message-row { display: grid; grid-template-columns: 220px minmax(0, 560px) 220px; gap: 50px; justify-content: center; align-items: start; }
-    .release, .message { grid-column: 2; }
-    .star { grid-column: 1; }
-    .twinkle { grid-column: 3; }
-    .number { text-align: left; color: #003399; margin: 0 0 8px; }
-    .photo { width: 100%; height: auto; }
-    .caption { margin: 3px auto 80px; display: flex; justify-content: space-between; color: #003399; font-size: 13px; }
-    .message { margin-bottom: 70px; line-height: 1.55; }
-    .sticker { width: 220px; }
-    .gif { width: 100%; aspect-ratio: 1; border: 0; }
-    .sticker p { margin: 2px 0; font-size: 12px; }
-    .player { width: min(100%, 540px); margin: 20px auto 150px; border: 1px solid #999; background: #eee; text-align: left; }
+    body { margin: 16px; background: white; color: #111; font-family: Computer, monospace; font-size: 16px; }
+    a { color: #1010a0; }
+    header, footer { display: flex; justify-content: space-between; gap: 24px; }
+    nav { display: flex; flex-wrap: wrap; gap: 16px 42px; }
+    .sheet { width: min(94%, 980px); margin: 65px auto 100px; display: grid; grid-template-columns: 250px 1fr; gap: 55px; }
+    .side section { margin: 45px 0; }
+    .logo { display: block; width: 190px; height: 190px; object-fit: contain; image-rendering: pixelated; }
+    .rule { border: 0; border-top: 1px dashed #7670b5; }
+    .label, .number, figcaption { color: #56509e; }
+    .index p { display: flex; justify-content: space-between; margin: 3px 0; }
+    .only-gif { display: block; width: 220px; height: auto; margin-top: 55px; }
+    .release { max-width: 600px; margin: 0 auto 75px; }
+    .release figure { margin: 0; }
+    .release img { display: block; width: 100%; height: auto; }
+    .release figcaption { display: flex; justify-content: space-between; margin-top: 4px; font-size: 13px; }
+    .message { max-width: 560px; margin: 0 auto 75px; text-align: center; line-height: 1.55; }
+    .player { max-width: 560px; margin: 0 auto; border: 1px solid #999; background: #eee; }
     .soundcloud { display: block; width: 100%; height: 120px; border: 0; }
     .player-link { padding: 6px; text-align: right; font-size: 13px; }
-    .gallery { width: min(100%, 700px); margin: 0 auto 120px; }
-    .gallery h2 { font-size: 18px; font-weight: normal; }
-    .gallery figure { margin: 90px 0; }
-    .gallery img { width: min(100%, 520px); height: auto; }
-    .gallery .pixel { width: min(100%, 360px); image-rendering: pixelated; }
-    .gallery figcaption { margin-top: 4px; color: #003399; font-size: 13px; }
-    footer { margin-top: 100px; align-items: flex-end; }
+    footer { align-items: flex-end; }
     footer nav { justify-content: flex-end; }
-    @media (max-width: 1050px) {
-      .release-row, .message-row { grid-template-columns: minmax(0, 560px); }
-      .release, .message, .star, .twinkle { grid-column: 1; }
-      .sticker { width: 150px; margin: 25px auto; }
-    }
-    @media (max-width: 650px) {
+    @media (max-width: 760px) {
       header, footer { flex-direction: column; }
-      header nav, footer nav { justify-content: flex-start; gap: 12px 24px; }
-      .logo { position: absolute; top: 12px; right: 12px; }
-      main { margin-top: 55px; }
+      .sheet { grid-template-columns: 1fr; gap: 20px; margin-top: 45px; }
+      .logo, .only-gif { margin-left: auto; margin-right: auto; }
+      .side section { margin: 35px 0; }
     }
   </style>
 </head>
@@ -52,30 +41,39 @@
   <header id="top">
     <a href="#top">oncite</a>
     <nav aria-label="Page navigation">
-      <a href="#release">Current<br>release</a>
-      <a href="#message">Notes<br>on color</a>
-      <a href="#player">Listen<br>player</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#links">Contact<br>links</a>
+      <a href="#release">current release</a>
+      <a href="#message">notes on color</a>
+      <a href="#player">listen</a>
+      <a href="#links">links</a>
     </nav>
-    <img class="logo" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
   </header>
 
-  <main>
-    <div class="release-row">
-      <aside class="sticker star" aria-label="Golden star sticker">
-        <iframe class="gif" src="https://giphy.com/embed/C4b6GwFKbYxK8" title="Golden star sticker from GIPHY" allowfullscreen></iframe>
-        <p><a href="https://giphy.com/stickers/golden-C4b6GwFKbYxK8" target="_blank" rel="noopener">via GIPHY</a></p>
-      </aside>
+  <main class="sheet">
+    <aside class="side">
+      <img class="logo" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
 
+      <section class="index" aria-labelledby="index-title">
+        <hr class="rule">
+        <div class="label" id="index-title">[ content ]</div>
+        <hr class="rule">
+        <p><span>need that color</span><span>01</span></p>
+        <p><span>notes on color</span><span>02</span></p>
+        <p><span>listen</span><span>03</span></p>
+        <hr class="rule">
+      </section>
+
+      <img class="only-gif" src="https://media4.giphy.com/media/CpN4i1XQAQmZFAD7wR/giphy.gif" alt="Animated star graphic">
+    </aside>
+
+    <div class="content">
       <section class="release" id="release" aria-label="Current release image">
         <p class="number">[01]</p>
-        <img class="photo" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
-        <div class="caption"><span>cam_01.jpg</span><span>before the color moved</span></div>
+        <figure>
+          <img src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
+          <figcaption><span>cam_01.jpg</span><span>before the color moved</span></figcaption>
+        </figure>
       </section>
-    </div>
 
-    <div class="message-row">
       <section class="message" id="message" aria-label="Notes on color">
         <p>all of this color scares me.</p>
         <p>I thought I needed less noise, less light, less feeling.</p>
@@ -85,30 +83,11 @@
         <p>I need it all.</p>
       </section>
 
-      <aside class="sticker twinkle" aria-label="White twinkle sticker">
-        <iframe class="gif" src="https://giphy.com/embed/z67mBV0zhGzDHYri1C" title="White twinkle sticker from GIPHY" allowfullscreen></iframe>
-        <p><a href="https://giphy.com/stickers/white-star-twinkle-z67mBV0zhGzDHYri1C" target="_blank" rel="noopener">via GIPHY</a></p>
-      </aside>
+      <section class="player" id="player" aria-label="SoundCloud player">
+        <iframe id="soundcloud-player" class="soundcloud" title="Listen to Oncite on SoundCloud" loading="lazy" allow="autoplay"></iframe>
+        <div class="player-link"><a id="track-link" href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">open track</a></div>
+      </section>
     </div>
-
-    <section class="player" id="player" aria-label="SoundCloud player">
-      <iframe id="soundcloud-player" class="soundcloud" title="Listen to Oncite on SoundCloud" loading="lazy" allow="autoplay"></iframe>
-      <div class="player-link"><a id="track-link" href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">open track</a></div>
-    </section>
-
-    <section class="gallery" id="gallery" aria-labelledby="gallery-title">
-      <h2 id="gallery-title">Gallery</h2>
-      <figure>
-        <p class="number">[02]</p>
-        <img src="assets/oncite-logo.png" alt="Original Oncite logo">
-        <figcaption>oncite logo.png</figcaption>
-      </figure>
-      <figure>
-        <p class="number">[03]</p>
-        <img class="pixel" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
-        <figcaption>Comp 1.png</figcaption>
-      </figure>
-    </section>
   </main>
 
   <footer id="links">
