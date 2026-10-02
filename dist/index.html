@@ -11,15 +11,14 @@
     html { scroll-behavior: smooth; }
     body { margin: 0; background: #fff; color: #111; font-family: Computer, monospace; font-size: 15px; }
     a { color: #0000a8; }
-    header { padding: 16px; text-align: center; }
-    nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 32px; }
+    header { position: fixed; top: 22px; left: 22px; z-index: 10; text-align: left; }
+    header nav { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
     main { width: min(92%, 760px); margin: 45px auto 120px; text-align: center; }
     section { margin: 0 auto 115px; }
-    .opening { min-height: 610px; }
+    .opening { min-height: 460px; }
     .logo { width: min(72vw, 340px); image-rendering: pixelated; }
-    h1 { margin: 12px 0 0; color: #1748d2; font-size: clamp(42px, 10vw, 80px); font-weight: normal; line-height: 1; }
     .small { color: #1748d2; }
-    .gif { display: block; width: 145px; margin: -35px 8% 0 auto; }
+    .gif { display: block; width: 145px; margin: -35px 12% 0 auto; }
     figure { margin: 0; }
     .release { max-width: 650px; }
     .release img { display: block; width: 100%; }
@@ -31,11 +30,15 @@
     .soundcloud { display: block; width: 100%; height: 120px; border: 0; }
     .player-link { padding: 6px; text-align: right; font-size: 12px; }
     footer { padding: 18px; text-align: center; }
-    footer nav { gap: 12px 40px; }
+    footer nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 40px; }
+    @media (max-width: 900px) {
+      header { position: static; padding: 16px; }
+      header nav { flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+    }
     @media (max-width: 600px) {
       main { margin-top: 25px; }
       section { margin-bottom: 85px; }
-      .opening { min-height: 500px; }
+      .opening { min-height: 390px; }
       .gif { width: 110px; margin-top: -20px; }
       figcaption { font-size: 10px; }
     }
@@ -55,8 +58,6 @@
   <main>
     <section class="opening" id="top" aria-label="Oncite">
       <img class="logo" src="assets/oncite-pixel.png" alt="Pixelated Oncite face logo">
-      <p class="small">once I saw it, I needed all of it</p>
-      <h1>ONCITE</h1>
       <img class="gif" src="https://media4.giphy.com/media/CpN4i1XQAQmZFAD7wR/giphy.gif" alt="Animated shining star">
     </section>
 
