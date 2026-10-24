@@ -1,0 +1,52 @@
+{
+  "artist": "oncite",
+  "pageDescription": "oncite — music, images, and need that color.",
+  "highlightWord": "color",
+  "release": {
+    "id": "need-that-color-v1",
+    "title": "need that color",
+    "status": "out now everywhere",
+    "index": "[01]",
+    "image": "assets/oncite-room.png",
+    "imageAlt": "Oncite seated indoors wearing a cap",
+    "fileLabel": "cam_01.jpg",
+    "caption": "before the color moved",
+    "soundcloud": "https://soundcloud.com/oncite/need-that-color-k0l",
+    "platforms": [
+      {
+        "label": "Spotify",
+        "url": "https://open.spotify.com/track/2z16estkEm261cMUIwRPB6?si=bd034c532f4e4a80"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/us/song/need-that-color/6818761573"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://youtu.be/wY241HZ09Hk?list=OLAK5uy_msa0FBlOxdZjJfO7_5j3-0eZoQ5AGmKLU"
+      },
+      {
+        "label": "SoundCloud",
+        "url": "https://soundcloud.com/oncite/need-that-color-k0l"
+      }
+    ]
+  },
+  "notes": [
+    "all of this color scares me.",
+    "I thought I needed less noise, less light, less feeling.",
+    "maybe I need more places, more people, more experiences.",
+    "what if I could take every color away with magic?",
+    "then I would probably miss it.",
+    "I need it all."
+  ],
+  "socials": [
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/0ncite/reels/"
+    },
+    {
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@0ncite"
+    }
+  ]
+}

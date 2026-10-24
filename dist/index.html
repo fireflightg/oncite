@@ -31,6 +31,14 @@
     .player-link { padding: 6px; text-align: right; font-size: 12px; }
     footer { padding: 18px; text-align: center; }
     footer nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 40px; }
+    .release-popup { width: min(86vw, 440px); padding: 0; border: 1px solid #111; background: #fff; color: #111; font-family: Computer, monospace; }
+    .release-popup::backdrop { background: rgba(255, 255, 255, .86); }
+    .popup-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 6px 8px; border-bottom: 1px solid #999; background: #eee; }
+    .popup-close { border: 1px solid #777; background: #fff; color: #111; font: inherit; cursor: pointer; }
+    .popup-body { padding: 22px; text-align: center; }
+    .popup-body h2 { margin: 8px 0 18px; font-size: clamp(24px, 7vw, 42px); font-weight: normal; }
+    .popup-cover { display: block; width: 100%; margin: 0 auto 18px; }
+    .popup-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 22px; }
     @media (max-width: 900px) {
       header { position: static; padding: 16px; }
       header nav { flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
@@ -60,14 +68,14 @@
     </section>
 
     <section class="release" id="release" aria-label="Current release image">
-      <p class="small">[01]</p>
+      <p class="small" id="release-index">[01]</p>
       <figure>
-        <img src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
-        <figcaption><span>cam_01.jpg</span><span>before the color moved</span></figcaption>
+        <img id="release-image" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
+        <figcaption><span id="release-file">cam_01.jpg</span><span id="release-caption">before the color moved</span></figcaption>
       </figure>
     </section>
 
-    <section class="notes" id="color" aria-label="Notes on color">
+    <section class="notes" id="color" aria-label="Notes on color" data-content="notes">
       <p>all of this <span class="word-blue">color</span> scares me.</p>
       <p>I thought I needed less noise, less light, less feeling.</p>
       <p>maybe I need more places, more people, more experiences.</p>
@@ -83,18 +91,144 @@
   </main>
 
   <footer id="links">
-    <nav aria-label="Oncite links">
+    <nav id="footer-links" aria-label="Oncite links">
       <a href="https://www.instagram.com/0ncite/reels/" target="_blank" rel="noopener">INSTAGRAM</a>
       <a href="https://www.tiktok.com/@0ncite" target="_blank" rel="noopener">TIKTOK</a>
       <a href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">SOUNDCLOUD</a>
-      <a href="https://open.spotify.com/artist/5I6XC9NLe7olIUzIZmUA6B?si=42Apl4CFTom0gqGpO6nQ1g" target="_blank" rel="noopener">SPOTIFY</a>
+      <a href="https://open.spotify.com/track/2z16estkEm261cMUIwRPB6?si=bd034c532f4e4a80" target="_blank" rel="noopener">SPOTIFY</a>
+      <a href="https://music.apple.com/us/song/need-that-color/6818761573" target="_blank" rel="noopener">APPLE MUSIC</a>
+      <a href="https://youtu.be/wY241HZ09Hk?list=OLAK5uy_msa0FBlOxdZjJfO7_5j3-0eZoQ5AGmKLU" target="_blank" rel="noopener">YOUTUBE</a>
     </nav>
   </footer>
 
+  <dialog class="release-popup" id="release-popup" aria-labelledby="popup-title">
+    <div class="popup-bar">
+      <span id="popup-status">out now everywhere</span>
+      <button class="popup-close" id="popup-close" type="button" aria-label="Close release window">X</button>
+    </div>
+    <div class="popup-body">
+      <p class="small">new release</p>
+      <h2 id="popup-title">need that color</h2>
+      <img class="popup-cover" id="popup-image" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
+      <nav class="popup-links" id="popup-links" aria-label="Listen to the new release"></nav>
+    </div>
+  </dialog>
+
   <script>
-    const trackLink = document.getElementById('track-link');
-    const player = document.getElementById('soundcloud-player');
-    player.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(trackLink.href) + '&color=%231748d2&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false';
+    const makeLink = (item) => {
+      const link = document.createElement('a');
+      link.href = item.url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = item.label.toUpperCase();
+      return link;
+    };
+
+    const renderHighlightedText = (element, text, word) => {
+      element.replaceChildren();
+      if (!word) {
+        element.textContent = text;
+        return;
+      }
+
+      const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const parts = text.split(new RegExp(`(${escapedWord})`, 'gi'));
+      parts.forEach((part) => {
+        if (part.toLowerCase() === word.toLowerCase()) {
+          const highlight = document.createElement('span');
+          highlight.className = 'word-blue';
+          highlight.textContent = part;
+          element.append(highlight);
+        } else {
+          element.append(document.createTextNode(part));
+        }
+      });
+    };
+
+    const setSoundCloudPlayer = (url) => {
+      const trackLink = document.getElementById('track-link');
+      const player = document.getElementById('soundcloud-player');
+      trackLink.href = url;
+      player.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(url) + '&color=%231748d2&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false';
+    };
+
+    const showReleasePopup = (release) => {
+      const popup = document.getElementById('release-popup');
+      const storageKey = `oncite-release-seen:${release.id}`;
+      let hasSeenRelease = false;
+
+      try {
+        hasSeenRelease = localStorage.getItem(storageKey) === '1';
+      } catch (error) {
+        console.warn('Release popup history is unavailable.', error);
+      }
+
+      if (hasSeenRelease) return;
+
+      const rememberRelease = () => {
+        try {
+          localStorage.setItem(storageKey, '1');
+        } catch (error) {
+          console.warn('Could not save release popup history.', error);
+        }
+      };
+
+      popup.addEventListener('close', rememberRelease, { once: true });
+      document.getElementById('popup-close').addEventListener('click', () => popup.close(), { once: true });
+
+      if (typeof popup.showModal === 'function') {
+        popup.showModal();
+      } else {
+        popup.setAttribute('open', '');
+      }
+    };
+
+    const loadContent = async () => {
+      const response = await fetch('content.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Could not load content.json (${response.status})`);
+
+      const content = await response.json();
+      const release = content.release;
+      document.title = content.artist;
+      document.querySelector('meta[name="description"]').content = content.pageDescription;
+
+      document.getElementById('release-index').textContent = release.index;
+      const releaseImage = document.getElementById('release-image');
+      releaseImage.src = release.image;
+      releaseImage.alt = release.imageAlt;
+      document.getElementById('release-file').textContent = release.fileLabel;
+      document.getElementById('release-caption').textContent = release.caption;
+
+      const notes = document.querySelector('[data-content="notes"]');
+      notes.replaceChildren();
+      content.notes.forEach((note) => {
+        const paragraph = document.createElement('p');
+        renderHighlightedText(paragraph, note, content.highlightWord);
+        notes.append(paragraph);
+      });
+
+      setSoundCloudPlayer(release.soundcloud);
+
+      const footerLinks = document.getElementById('footer-links');
+      footerLinks.replaceChildren();
+      [...content.socials, ...release.platforms].forEach((item) => footerLinks.append(makeLink(item)));
+
+      document.getElementById('popup-status').textContent = release.status;
+      document.getElementById('popup-title').textContent = release.title;
+      const popupImage = document.getElementById('popup-image');
+      popupImage.src = release.image;
+      popupImage.alt = release.imageAlt;
+      const popupLinks = document.getElementById('popup-links');
+      popupLinks.replaceChildren();
+      release.platforms.forEach((item) => popupLinks.append(makeLink(item)));
+
+      showReleasePopup(release);
+    };
+
+    loadContent().catch((error) => {
+      console.error(error);
+      setSoundCloudPlayer(document.getElementById('track-link').href);
+    });
   </script>
 </body>
 </html>
