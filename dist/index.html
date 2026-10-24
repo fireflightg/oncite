@@ -33,12 +33,11 @@
     footer nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 40px; }
     .release-popup { width: min(86vw, 440px); padding: 0; border: 1px solid #111; background: #fff; color: #111; font-family: Computer, monospace; }
     .release-popup::backdrop { background: rgba(255, 255, 255, .86); }
-    .popup-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 6px 8px; border-bottom: 1px solid #999; background: #eee; }
-    .popup-close { border: 1px solid #777; background: #fff; color: #111; font: inherit; cursor: pointer; }
     .popup-body { padding: 22px; text-align: center; }
     .popup-body h2 { margin: 8px 0 18px; font-size: clamp(24px, 7vw, 42px); font-weight: normal; }
     .popup-cover { display: block; width: 100%; margin: 0 auto 18px; }
     .popup-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 22px; }
+    .popup-enter { margin-top: 24px; padding: 0; border: 0; background: transparent; color: #0000a8; font: inherit; text-decoration: underline; cursor: pointer; }
     @media (max-width: 900px) {
       header { position: static; padding: 16px; }
       header nav { flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
@@ -102,15 +101,12 @@
   </footer>
 
   <dialog class="release-popup" id="release-popup" aria-labelledby="popup-title">
-    <div class="popup-bar">
-      <span id="popup-status">out now everywhere</span>
-      <button class="popup-close" id="popup-close" type="button" aria-label="Close release window">X</button>
-    </div>
     <div class="popup-body">
-      <p class="small">new release</p>
+      <p class="small" id="popup-status">out now everywhere</p>
       <h2 id="popup-title">need that color</h2>
-      <img class="popup-cover" id="popup-image" src="assets/oncite-room.png" alt="Oncite seated indoors wearing a cap">
+      <img class="popup-cover" id="popup-image" src="https://i1.sndcdn.com/artworks-a1zePdFkmlOjOyNT-CuzG6Q-t500x500.jpg" alt="Need That Color cover art">
       <nav class="popup-links" id="popup-links" aria-label="Listen to the new release"></nav>
+      <button class="popup-enter" id="popup-close" type="button">ENTER SITE</button>
     </div>
   </dialog>
 
@@ -216,8 +212,8 @@
       document.getElementById('popup-status').textContent = release.status;
       document.getElementById('popup-title').textContent = release.title;
       const popupImage = document.getElementById('popup-image');
-      popupImage.src = release.image;
-      popupImage.alt = release.imageAlt;
+      popupImage.src = release.popupImage || release.image;
+      popupImage.alt = release.popupImageAlt || release.imageAlt;
       const popupLinks = document.getElementById('popup-links');
       popupLinks.replaceChildren();
       release.platforms.forEach((item) => popupLinks.append(makeLink(item)));
