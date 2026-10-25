@@ -32,16 +32,20 @@
     footer { position: relative; z-index: 1; padding: 18px; text-align: center; }
     footer nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 40px; }
     .background-stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-    .background-stars span { position: absolute; left: var(--x); top: var(--y); width: var(--size); aspect-ratio: 1; background: #1748d2; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 56%, 79% 92%, 50% 70%, 21% 92%, 32% 56%, 2% 35%, 39% 35%); transform: translate(-50%, -50%) rotate(var(--turn)); }
-    .release-popup { width: min(86vw, 440px); padding: 0; border: 1px solid #111; background: #fff; color: #111; font-family: Computer, monospace; }
-    .release-popup::backdrop { background: rgba(255, 255, 255, .86); }
-    .popup-body { padding: 22px; text-align: center; }
-    .popup-body h2 { margin: 8px 0 18px; font-size: clamp(24px, 7vw, 42px); font-weight: normal; }
-    .popup-cover { display: block; width: 100%; margin: 0 auto 18px; }
-    .popup-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 22px; }
-    .popup-enter { margin-top: 24px; padding: 0; border: 0; background: transparent; color: #0000a8; font: inherit; text-decoration: underline; cursor: pointer; }
+    .background-stars span { position: absolute; left: var(--x); top: var(--y); width: var(--size); aspect-ratio: 1; background: #e6f7fb; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 56%, 79% 92%, 50% 70%, 21% 92%, 32% 56%, 2% 35%, 39% 35%); transform: translate(-50%, -50%) rotate(var(--turn)); }
+    .release-tab { position: fixed; top: 0; left: 50%; z-index: 20; min-width: 220px; padding: 10px 18px 9px; border: 1px solid #1748d2; border-top: 0; background: #fff; color: #1748d2; text-align: center; text-decoration: none; animation: release-tab-in .55s ease-out both; }
+    .release-tab span { display: block; }
+    .release-tab-title { margin-bottom: 5px; color: #111; }
+    .release-tab-more { font-size: 12px; }
+    @keyframes release-tab-in {
+      from { transform: translate(-50%, -100%); }
+      to { transform: translate(-50%, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .release-tab { animation: none; transform: translateX(-50%); }
+    }
     @media (max-width: 900px) {
-      header { position: static; padding: 16px; }
+      header { position: static; padding: 76px 16px 16px; }
       header nav { flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
     }
     @media (max-width: 600px) {
@@ -64,6 +68,11 @@
     <span style="--x: 18%; --y: 87%; --size: 62px; --turn: 15deg;"></span>
     <span style="--x: 95%; --y: 91%; --size: 48px; --turn: -17deg;"></span>
   </div>
+
+  <a class="release-tab" id="release-tab" href="#release" aria-label="Learn more about need that color">
+    <span class="release-tab-title" id="release-tab-title">need that color</span>
+    <span class="release-tab-more">LEARN MORE ↓</span>
+  </a>
 
   <header>
     <nav aria-label="Page navigation">
@@ -114,16 +123,6 @@
     </nav>
   </footer>
 
-  <dialog class="release-popup" id="release-popup" aria-labelledby="popup-title">
-    <div class="popup-body">
-      <p class="small" id="popup-status">out now everywhere</p>
-      <h2 id="popup-title">need that color</h2>
-      <img class="popup-cover" id="popup-image" src="https://i1.sndcdn.com/artworks-a1zePdFkmlOjOyNT-CuzG6Q-t500x500.jpg" alt="Need That Color cover art">
-      <nav class="popup-links" id="popup-links" aria-label="Listen to the new release"></nav>
-      <button class="popup-enter" id="popup-close" type="button">ENTER SITE</button>
-    </div>
-  </dialog>
-
   <script>
     const makeLink = (item) => {
       const link = document.createElement('a');
@@ -162,37 +161,6 @@
       player.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(url) + '&color=%231748d2&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false';
     };
 
-    const showReleasePopup = (release) => {
-      const popup = document.getElementById('release-popup');
-      const storageKey = `oncite-release-seen:${release.id}`;
-      let hasSeenRelease = false;
-
-      try {
-        hasSeenRelease = localStorage.getItem(storageKey) === '1';
-      } catch (error) {
-        console.warn('Release popup history is unavailable.', error);
-      }
-
-      if (hasSeenRelease) return;
-
-      const rememberRelease = () => {
-        try {
-          localStorage.setItem(storageKey, '1');
-        } catch (error) {
-          console.warn('Could not save release popup history.', error);
-        }
-      };
-
-      popup.addEventListener('close', rememberRelease, { once: true });
-      document.getElementById('popup-close').addEventListener('click', () => popup.close(), { once: true });
-
-      if (typeof popup.showModal === 'function') {
-        popup.showModal();
-      } else {
-        popup.setAttribute('open', '');
-      }
-    };
-
     const loadContent = async () => {
       const response = await fetch('content.json', { cache: 'no-store' });
       if (!response.ok) throw new Error(`Could not load content.json (${response.status})`);
@@ -223,16 +191,9 @@
       footerLinks.replaceChildren();
       [...content.socials, ...release.platforms].forEach((item) => footerLinks.append(makeLink(item)));
 
-      document.getElementById('popup-status').textContent = release.status;
-      document.getElementById('popup-title').textContent = release.title;
-      const popupImage = document.getElementById('popup-image');
-      popupImage.src = release.popupImage || release.image;
-      popupImage.alt = release.popupImageAlt || release.imageAlt;
-      const popupLinks = document.getElementById('popup-links');
-      popupLinks.replaceChildren();
-      release.platforms.forEach((item) => popupLinks.append(makeLink(item)));
-
-      showReleasePopup(release);
+      const releaseTab = document.getElementById('release-tab');
+      document.getElementById('release-tab-title').textContent = release.title;
+      releaseTab.setAttribute('aria-label', `Learn more about ${release.title}`);
     };
 
     loadContent().catch((error) => {
