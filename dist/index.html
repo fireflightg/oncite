@@ -28,6 +28,7 @@
     .notes p:nth-child(odd) { text-align: right; }
     .player { max-width: 590px; border: 1px solid #888; background: #eee; }
     .soundcloud { display: block; width: 100%; height: 120px; border: 0; }
+    .spotify { display: block; width: 100%; height: 152px; border: 0; margin-top: 8px; }
     .player-link { padding: 6px; text-align: right; font-size: 12px; }
     footer { position: relative; z-index: 1; padding: 18px; text-align: center; }
     footer nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 40px; }
@@ -90,9 +91,10 @@
       <p>I need it all.</p>
     </section>
 
-    <section class="player" id="listen" aria-label="SoundCloud player">
+    <section class="player" id="listen" aria-label="Music players">
       <iframe id="soundcloud-player" class="soundcloud" title="Listen to Oncite on SoundCloud" loading="lazy" allow="autoplay"></iframe>
       <div class="player-link"><a id="track-link" href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">open track</a></div>
+      <iframe id="spotify-player" class="spotify" title="Listen to Oncite on Spotify" src="https://open.spotify.com/embed/track/2z16estkEm261cMUIwRPB6?utm_source=generator&amp;theme=0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
     </section>
   </main>
 
@@ -102,7 +104,7 @@
       <a href="https://www.tiktok.com/@0ncite" target="_blank" rel="noopener">TIKTOK</a>
       <a href="https://discord.gg/fZ9Ywffd3F" target="_blank" rel="noopener">DISCORD</a>
       <a href="https://soundcloud.com/oncite/need-that-color-k0l" target="_blank" rel="noopener">SOUNDCLOUD</a>
-      <a href="https://open.spotify.com/track/2z16estkEm261cMUIwRPB6?si=bd034c532f4e4a80" target="_blank" rel="noopener">SPOTIFY</a>
+      <a href="https://open.spotify.com/track/2z16estkEm261cMUIwRPB6?si=1f303abf9bf54dcd" target="_blank" rel="noopener">SPOTIFY</a>
       <a href="https://music.apple.com/us/song/need-that-color/6818761573" target="_blank" rel="noopener">APPLE MUSIC</a>
       <a href="https://youtu.be/wY241HZ09Hk?list=OLAK5uy_msa0FBlOxdZjJfO7_5j3-0eZoQ5AGmKLU" target="_blank" rel="noopener">YOUTUBE</a>
     </nav>
@@ -146,6 +148,14 @@
       player.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(url) + '&color=%231748d2&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false';
     };
 
+    const setSpotifyPlayer = (url) => {
+      const segments = new URL(url).pathname.split('/').filter(Boolean);
+      const trackIndex = segments.indexOf('track');
+      const trackId = segments[trackIndex + 1];
+      if (trackIndex < 0 || !trackId) throw new Error('Spotify URL must point to a track');
+      document.getElementById('spotify-player').src = `https://open.spotify.com/embed/track/${encodeURIComponent(trackId)}?utm_source=generator&theme=0`;
+    };
+
     const loadContent = async () => {
       const response = await fetch('content.json', { cache: 'no-store' });
       if (!response.ok) throw new Error(`Could not load content.json (${response.status})`);
@@ -171,10 +181,16 @@
       });
 
       setSoundCloudPlayer(release.soundcloud);
+      setSpotifyPlayer(release.spotify);
 
       const footerLinks = document.getElementById('footer-links');
       footerLinks.replaceChildren();
-      [...content.socials, ...release.platforms].forEach((item) => footerLinks.append(makeLink(item)));
+      const releaseLinks = [
+        { label: 'Spotify', url: release.spotify },
+        ...release.platforms,
+        { label: 'SoundCloud', url: release.soundcloud }
+      ];
+      [...content.socials, ...releaseLinks].forEach((item) => footerLinks.append(makeLink(item)));
 
     };
 

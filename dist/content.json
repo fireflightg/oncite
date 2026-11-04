@@ -12,11 +12,8 @@
     "fileLabel": "cam_01.jpg",
     "caption": "before the color moved",
     "soundcloud": "https://soundcloud.com/oncite/need-that-color-k0l",
+    "spotify": "https://open.spotify.com/track/2z16estkEm261cMUIwRPB6?si=1f303abf9bf54dcd",
     "platforms": [
-      {
-        "label": "Spotify",
-        "url": "https://open.spotify.com/track/2z16estkEm261cMUIwRPB6?si=bd034c532f4e4a80"
-      },
       {
         "label": "Apple Music",
         "url": "https://music.apple.com/us/song/need-that-color/6818761573"
@@ -24,10 +21,6 @@
       {
         "label": "YouTube",
         "url": "https://youtu.be/wY241HZ09Hk?list=OLAK5uy_msa0FBlOxdZjJfO7_5j3-0eZoQ5AGmKLU"
-      },
-      {
-        "label": "SoundCloud",
-        "url": "https://soundcloud.com/oncite/need-that-color-k0l"
       }
     ]
   },
